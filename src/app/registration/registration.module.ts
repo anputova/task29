@@ -8,6 +8,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {RegistrationFormComponent} from "./registration-form/registration-form.component";
 import {MatIconModule} from "@angular/material/icon";
+import {RegistrationDataService} from "./registration-data.service";
+import {RegistrationService} from "./registration.service";
 
 
 @NgModule({
@@ -16,12 +18,16 @@ import {MatIconModule} from "@angular/material/icon";
     CommonModule,
     FormsModule,
     MatButtonModule,
-    MatFormFieldModule, //todo* clean
+    MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
 
     RegistrationRoutingModule
+  ],
+  providers: [
+    RegistrationDataService,
+    RegistrationService
   ]
 })
 export class RegistrationModule {

@@ -1,11 +1,29 @@
+<p class="server-error" *ngIf="serverError">An error occurred. Please, try again later. Info: {{serverError}}</p>
 <p>Please, fill registration form below:</p>
-<form action="submit">
-  <mat-form-field class="example-form-field">
-    <mat-label>Clearable input</mat-label>
-    <input matInput type="text" name="test" [(ngModel)]="value">
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-  <a mat-raised-button [routerLink]="['/welcome']" color="primary">Submit</a>
+<form (ngSubmit)="onSave()" [formGroup]="userForm">
+  <ng-container *ngFor="let control of controls">
+
+      <mat-form-field appearance="fill">
+        <mat-label>{{control.label}}</mat-label>
+        <ng-container [ngSwitch]="control.type">
+          <ng-container *ngSwitchDefault>
+            <input matInput [type]="control.type" [formControlName]="control.name" [required]="control.required">
+          </ng-container>
+          <ng-container *ngSwitchCase="formControlType.phone">
+            <input matInput type="tel" [formControlName]="control.name" [required]="control.required">
+          </ng-container>
+          <ng-container *ngSwitchCase="formControlType.password">
+            <input matInput [type]="hide ? 'password' : 'text'" [formControlName]="control.name"
+                   [required]="control.required">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </ng-container>
+        </ng-container>
+      </mat-form-field>
+
+  </ng-container>
+
+  <button type="submit" mat-raised-button color="primary" [disabled]="userForm.pristine || userForm.invalid">Submit</button>
 </form>
