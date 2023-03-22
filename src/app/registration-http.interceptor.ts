@@ -211,7 +211,7 @@ export class RegistrationHttpInterceptor implements HttpInterceptor {
 
       return of(new HttpResponse(
         {status: 200, body: request.body}
-      )).pipe(delay(1));
+      )).pipe(delay(100));
     }
 
     return next.handle(request);
