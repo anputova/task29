@@ -1,5 +1,5 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
-import {Observable, of} from "rxjs";
+import {delay, Observable, of} from "rxjs";
 import {RegistrationField} from "./registration/registration-field";
 import {RegistrationRequest} from "./registration/registration-request";
 
@@ -208,9 +208,10 @@ export class RegistrationHttpInterceptor implements HttpInterceptor {
 
     if (request.url.includes('/register')) {
       console.log(request.body);
+
       return of(new HttpResponse(
         {status: 200, body: request.body}
-      ));
+      )).pipe(delay(1));
     }
 
     return next.handle(request);
