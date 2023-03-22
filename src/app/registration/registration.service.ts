@@ -57,7 +57,7 @@ export class RegistrationService {
           errorText: validatorConfig.message
         };
       default:
-        throw new Error("[Validator from feature]: unknown type");
+        throw new Error("[Validator from feature 2]: unknown type");
     }
   }
 }
